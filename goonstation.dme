@@ -898,6 +898,7 @@ var/datum/preMapLoad/preMapLoad = new
 #include "code\obj\machinery\tripod.dm"
 #include "code\obj\machinery\turret.dm"
 #include "code\obj\machinery\vending.dm"
+#include "code\obj\machinery\zecoffee.dm"
 #include "code\obj\machinery\atmospherics\binary.dm"
 #include "code\obj\machinery\atmospherics\filter.dm"
 #include "code\obj\machinery\atmospherics\mixer.dm"
