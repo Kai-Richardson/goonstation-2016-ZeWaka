@@ -883,6 +883,19 @@
 	rc_flags = RC_SPECTRO
 	initial_volume = 15
 
+/obj/item/reagent_containers/food/drinks/lattecup
+	name = "latte cup"
+	desc = "A fancy latte cup, for sipping in the finest establishments." //*tip
+	icon = 'icons/obj/foodNdrink/zecoffee.dmi'
+	icon_state = "funny" //no no no no
+	item_state = "machobelt" // no nonononono
+	rc_flags = RC_SPECTRO
+	initial_volume = 10
+
+	New()
+		..()
+		reagents.add_reagent("latte", 10)
+
 /obj/item/reagent_containers/food/drinks/pitcher
 	name = "glass pitcher"
 	desc = "A big container for holding a lot of liquid that you then serve to people. Probably alcohol, let's be honest."

@@ -1532,6 +1532,14 @@ datum
 					if(M.stunned) M.stunned--
 					if(M.weakened) M.weakened--
 
+		fooddrink/coffee/latte
+			name = "latte"
+			id = "latte"
+			description = "A latte is a type of espresso that has a bit of steamed milk."
+			fluid_r = 93
+			fluid_g = 67
+			fluid_b = 39
+
 		fooddrink/coffee/energydrink
 			name = "energy drink"
 			id = "energydrink"
