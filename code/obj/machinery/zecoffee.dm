@@ -60,7 +60,7 @@
 
 	attack_hand(mob/user as mob)
 		src.add_fingerprint(user)
-		if (src.cupinside = 0)
+		if (src.cupinside == 0)
 			user.show_text("\The [src] has no cup to remove, doofus!", "red")
 		else
 			boutput(user, "You take \an [src.cup] out of \the [src].")
@@ -76,13 +76,13 @@
 
 /* ===================================================== */
 /* ---------------------- Cup Rack --------------------- */
-/* ==================================================== */
+/* ===================================================== */
 /obj/cup_rack
-	name = "cup rack"
-	desc = "It's a rack to hang your fancy coffee cups." //haha no
+	name = "coffee cup rack"
+	desc = "It's a rack to hang your fancy coffee cups." //*tip
 	icon = 'icons/obj/foodNdrink/zecoffee.dmi'
-	icon_state = "utilitybelt" //no no no, will be cuprack6
-	var/cup_amount = 6
+	icon_state = "cuprack7" //changes based cup_ammount
+	var/cup_amount = 7
 	var/contained_cup = /obj/item/reagent_containers/food/drinks/coffeecup
 	var/contained_cup_name = "coffee cup"
 
@@ -96,7 +96,7 @@
 			qdel(W)
 			src.cup_amount ++
 			boutput(user, "You place \the [src.contained_cup_name] back into \the [src].")
-			src.update()
+			src.updateicon()
 		else return ..()
 
 	attack_hand(mob/user as mob)
@@ -108,9 +108,8 @@
 			src.cup_amount--
 			var/obj/item/reagent_containers/food/drinks/coffeecup/P = new /obj/item/reagent_containers/food/drinks/coffeecup
 			user.put_in_hand_or_drop(P)
-			src.update()
+			src.updateicon()
 
-	proc/update()
-//		src.icon_state = "cuprack[src.cup_amount]" //this sets the iconstate to the ammount of cups
-		src.icon_state = "fanny"
+	proc/updateicon()
+		src.icon_state = "cuprack[src.cup_amount]" //sets the icon_state to the ammount of cups on the rack
 		return
