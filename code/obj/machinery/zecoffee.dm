@@ -41,42 +41,76 @@
 /* ==================================================== */
 /* --------------------- Machines --------------------- */
 /* ==================================================== */
-/obj/coffee_machines/espresso //sorry about the frankencode
+/obj/machinery/coffee_machines/espresso //sorry about the frankencode
 	name = "espresso machine"
 	desc = "It's top of the line NanoTrasen espresso technology! Featuring 100% Organic Locally-Grown espresso beans!" //haha no
 	icon = 'icons/obj/foodNdrink/zecoffee.dmi'
 	icon_state = "syndie" //no no no
-	var/lcup_amount = 6
-	var/contained_cup = /obj/item/reagent_containers/food/drinks/lattecup
-	var/contained_cup_name = "latte cup"
-
-	get_desc(dist, mob/user)
-		if (dist <= 1)
-			. += "There's [(src.lcup_amount > 0) ? src.lcup_amount : "no" ] [src.contained_cup_name][s_es(src.lcup_amount)] in \the [src]."
-		if (dist <= 2 && reagents)
-			. += "<br><span style=\"color:blue\">[reagents.get_description(user,RC_SCALE)]</span>" //does not show amnt of reagents if you are more than 2 tiles away
+	var/cupinside = 0 //true or false
+	var/cup = "coffee cup"
 
 	attackby(obj/item/W as obj, mob/user as mob)
-		if (istype(W, src.contained_cup) & src.lcup_amount < 6)
+		if (istype(W, src.cup))
 			user.drop_item()
 			qdel(W)
-			src.lcup_amount ++
+			src.cupinside ++
+			boutput(user, "You place \the [src.cup] into \the [src].")
+			src.update()
+		else return ..()
+
+	attack_hand(mob/user as mob)
+		src.add_fingerprint(user)
+		if (src.cupinside = 0)
+			user.show_text("\The [src] has no cup to remove, doofus!", "red")
+		else
+			boutput(user, "You take \an [src.cup] out of \the [src].")
+			src.cupinside--
+			var/obj/item/reagent_containers/food/drinks/coffeecup/P = new /obj/item/reagent_containers/food/drinks/coffeecup //wont be this once i put reagent stuff in
+			user.put_in_hand_or_drop(P) //wont be this once i put reagent stuff in
+			src.update()
+
+	proc/update()
+//		src.icon_state = "coffeepot[src.cupinside]" //i switch this over after i get icons done
+		src.icon_state = "fanny"
+		return
+
+/* ===================================================== */
+/* ---------------------- Cup Rack --------------------- */
+/* ==================================================== */
+/obj/cup_rack
+	name = "cup rack"
+	desc = "It's a rack to hang your fancy coffee cups." //haha no
+	icon = 'icons/obj/foodNdrink/zecoffee.dmi'
+	icon_state = "utilitybelt" //no no no, will be cuprack6
+	var/cup_amount = 6
+	var/contained_cup = /obj/item/reagent_containers/food/drinks/coffeecup
+	var/contained_cup_name = "coffee cup"
+
+	get_desc(dist, mob/user)
+		if (dist <= 2)
+			. += "There's [(src.cup_amount > 0) ? src.cup_amount : "no" ] [src.contained_cup_name][s_es(src.cup_amount)] in \the [src]."
+
+	attackby(obj/item/W as obj, mob/user as mob)
+		if (istype(W, src.contained_cup) & src.cup_amount < 6)
+			user.drop_item()
+			qdel(W)
+			src.cup_amount ++
 			boutput(user, "You place \the [src.contained_cup_name] back into \the [src].")
 			src.update()
 		else return ..()
 
 	attack_hand(mob/user as mob)
 		src.add_fingerprint(user)
-		if (src.lcup_amount <= 0)
+		if (src.cup_amount <= 0)
 			user.show_text("\The [src] doesn't have any cups left, doofus!", "red")
 		else
 			boutput(user, "You take \an [src.contained_cup_name] out of \the [src].")
-			src.lcup_amount--
-			var/obj/item/reagent_containers/food/drinks/lattecup/P = new /obj/item/reagent_containers/food/drinks/lattecup
+			src.cup_amount--
+			var/obj/item/reagent_containers/food/drinks/coffeecup/P = new /obj/item/reagent_containers/food/drinks/coffeecup
 			user.put_in_hand_or_drop(P)
 			src.update()
 
 	proc/update()
-//		src.icon_state = "coffeepot[src.lcup_amount]"
+//		src.icon_state = "cuprack[src.cup_amount]" //this sets the iconstate to the ammount of cups
 		src.icon_state = "fanny"
 		return

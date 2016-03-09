@@ -883,18 +883,40 @@
 	rc_flags = RC_SPECTRO
 	initial_volume = 15
 
-/obj/item/reagent_containers/food/drinks/lattecup
-	name = "latte cup"
-	desc = "A fancy latte cup, for sipping in the finest establishments." //*tip
-	icon = 'icons/obj/foodNdrink/zecoffee.dmi'
-	icon_state = "funny" //no no no no
-	item_state = "machobelt" // no nonononono
-	rc_flags = RC_SPECTRO
+/obj/item/reagent_containers/food/drinks/coffeecup
+	name = "coffee cup"
+	desc = "A fancy coffee cup, for sipping in the finest establishments." //*tip
+	icon_state = "fancycoffee"
+	item_state = "drink_glass"
+	rc_flags = RC_SPECTRO | RC_FULLNESS | RC_VISIBLE //see _setup.dm
 	initial_volume = 10
+	gulp_size = 2.5 //might be broken still
+	var/glass_style = "fancycoffee"
+
+	var/image/fluid_image
 
 	New()
 		..()
-		reagents.add_reagent("latte", 10)
+		reagents.add_reagent("espresso", 10) // remove once coffee machine is added, debug currently
+		fluid_image = image('icons/obj/drink.dmi', "fluid-[glass_style]")
+		update_icon()
+
+	on_reagent_change()
+		src.update_icon()
+
+	proc/update_icon() // i need to fix this shit, multiple levels of fluid in the coffe instead of this crap
+		src.overlays = null
+		icon_state = "[glass_style]"
+	// if (src.reagents.total_volume == 0) //empty
+	// 	icon_state = "[glass_style]"
+	// if (src.reagents.total_volume > 0) //full
+	// 	icon_state = "[glass_style]1"
+
+		var/datum/color/average = reagents.get_average_color()
+		if (!fluid_image)
+			fluid_image = image('icons/obj/drink.dmi', "fluid-[glass_style]")
+		fluid_image.color = average.to_rgba()
+		src.overlays += src.fluid_image
 
 /obj/item/reagent_containers/food/drinks/pitcher
 	name = "glass pitcher"

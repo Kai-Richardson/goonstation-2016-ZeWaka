@@ -1532,13 +1532,32 @@ datum
 					if(M.stunned) M.stunned--
 					if(M.weakened) M.weakened--
 
-		fooddrink/coffee/latte
-			name = "latte"
-			id = "latte"
-			description = "A latte is a type of espresso that has a bit of steamed milk."
-			fluid_r = 93
-			fluid_g = 67
-			fluid_b = 39
+		fooddrink/coffee/espresso //the good stuff
+			name = "espresso"
+			id = "espresso"
+			description = "An espresso is a strong black coffee with more caffeine."
+			fluid_r = 37
+			fluid_g = 26
+			fluid_b = 14
+			thirst_value = -2
+
+			on_add()
+				if (istype(holder) && istype(holder.my_atom) && hascall(holder.my_atom,"add_stam_mod_regen")) //gotta get hyped
+					holder.my_atom:add_stam_mod_regen("caffeine rush", 3)
+				return
+
+			on_remove()
+				if (istype(holder) && istype(holder.my_atom) && hascall(holder.my_atom,"remove_stam_mod_regen"))
+					holder.my_atom:remove_stam_mod_regen("caffeine rush")
+				return
+
+			on_mob_life(var/mob/M)
+				..(M)
+				M.make_jittery(1)
+				if(prob(10))
+					if(M.paralysis) M.paralysis--
+					if(M.stunned) M.stunned--
+					if(M.weakened) M.weakened--
 
 		fooddrink/coffee/energydrink
 			name = "energy drink"
