@@ -883,11 +883,11 @@
 	rc_flags = RC_SPECTRO
 	initial_volume = 15
 
-/obj/item/reagent_containers/food/drinks/coffeecup
-	name = "coffee cup"
-	desc = "A fancy coffee cup, for sipping in the finest establishments." //*tip
+/obj/item/reagent_containers/food/drinks/espressocup
+	name = "espresso cup"
+	desc = "A fancy espresso cup, for sipping in the finest establishments." //*tip
 	icon_state = "fancycoffee"
-	item_state = "drink_glass"
+	item_state = "drink_glass" //inhand sprite, change
 	rc_flags = RC_SPECTRO | RC_FULLNESS | RC_VISIBLE //see _setup.dm
 	initial_volume = 10
 	gulp_size = 2.5 //might be broken still
@@ -897,7 +897,6 @@
 
 	New()
 		..()
-		reagents.add_reagent("espresso", 10) // remove once coffee machine is added, debug currently
 		fluid_image = image('icons/obj/drink.dmi', "fluid-[glass_style]")
 		update_icon()
 
