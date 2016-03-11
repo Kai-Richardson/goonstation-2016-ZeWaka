@@ -2295,6 +2295,7 @@
 #endif
 			if (!isnull(W))
 				W.attack(src, user)
+				attack_twitch(user)
 				if(W && W.force) //Wire: Fix for Cannot read null.force
 					message_admin_on_attack(user, "uses \a [W.name] on")
 			return

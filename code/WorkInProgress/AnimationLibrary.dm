@@ -25,6 +25,35 @@
 	animate(A, pixel_x = rand(-64, 64), pixel_y = rand(-64, 64), transform = matrix(floatdegrees * (side == 1 ? 1:-1), MATRIX_ROTATE), time = 10, alpha = 0, easing = SINE_EASING)
 	return
 
+/proc/attack_twitch(var/atom/A)
+	if (!istype(A) || istype(A, /mob/living/object))
+		return		//^ possessed objects use an animate loop that is important for readability. let's not interrupt that with this dumb animation
+	var/which = A.dir
+	spawn(1)
+		var/ipx = A.pixel_x
+		var/ipy = A.pixel_y
+		var/movepx = 0
+		var/movepy = 0
+		switch(which)
+			if (NORTH)          	movepy = 3
+			if (WEST)            	movepx = -3
+			if (SOUTH)          	movepy = -3
+			if (EAST)           	movepx = 3
+			if (NORTHEAST)         	movepx = 3
+			if (NORTHWEST)         	movepy = 3
+			if (SOUTHEAST)         	movepy = -3
+			if (SOUTHWEST)         	movepx = -3
+			else
+				return
+
+		var/x = movepx + ipx
+		var/y = movepy + ipy
+
+		animate(A, pixel_x = x, pixel_y = y, time = 0.6,easing = EASE_OUT)
+		animate(transform = turn(matrix(), (movepx - movepy) * 4), time = 0.6, easing = EASE_OUT)
+		animate(pixel_x = ipx, pixel_y = ipy, time = 0.6,easing = EASE_IN)
+		animate(transform = turn(matrix(), 0), time = 0.6, easing = EASE_IN)
+
 /proc/animate_float(var/atom/A, var/loopnum = -1, floatspeed = 20, random_side = 1)
 	if (!istype(A))
 		return
