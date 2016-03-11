@@ -887,10 +887,10 @@
 	name = "espresso cup"
 	desc = "A fancy espresso cup, for sipping in the finest establishments." //*tip
 	icon_state = "fancycoffee"
-	item_state = "drink_glass" //inhand sprite, change
+	item_state = "coffee"
 	rc_flags = RC_SPECTRO | RC_FULLNESS | RC_VISIBLE //see _setup.dm
 	initial_volume = 10
-	gulp_size = 2.5 //might be broken still
+	gulp_size = 2.5 //might be broken still, Whatever
 	var/glass_style = "fancycoffee"
 
 	var/image/fluid_image
@@ -903,13 +903,9 @@
 	on_reagent_change()
 		src.update_icon()
 
-	proc/update_icon() // i need to fix this shit, multiple levels of fluid in the coffe instead of this crap
+	proc/update_icon() //updates icon based on fluids inside
 		src.overlays = null
 		icon_state = "[glass_style]"
-	// if (src.reagents.total_volume == 0) //empty
-	// 	icon_state = "[glass_style]"
-	// if (src.reagents.total_volume > 0) //full
-	// 	icon_state = "[glass_style]1"
 
 		var/datum/color/average = reagents.get_average_color()
 		if (!fluid_image)

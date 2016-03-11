@@ -1540,10 +1540,12 @@ datum
 			fluid_g = 26
 			fluid_b = 14
 			thirst_value = -2
+			var/caffeine_rush = 3
+			var/caffeine_jitters = 10
 
 			on_add()
 				if (istype(holder) && istype(holder.my_atom) && hascall(holder.my_atom,"add_stam_mod_regen")) //gotta get hyped
-					holder.my_atom:add_stam_mod_regen("caffeine rush", 3)
+					holder.my_atom:add_stam_mod_regen("caffeine rush", src.caffeine_rush)
 				return
 
 			on_remove()
@@ -1554,10 +1556,18 @@ datum
 			on_mob_life(var/mob/M)
 				..(M)
 				M.make_jittery(1)
-				if(prob(10))
+				if(prob(src.caffeine_jitters))
 					if(M.paralysis) M.paralysis--
 					if(M.stunned) M.stunned--
 					if(M.weakened) M.weakened--
+
+		fooddrink/coffee/espresso/decaf
+			name = "decaf espresso"
+			id = "decafespresso"
+			description = "A decaf espresso contains less caffeine than a regular espresso."
+			caffeine_rush = 2
+			caffeine_jitters = 5
+			addiction_prob = 2
 
 		fooddrink/coffee/energydrink
 			name = "energy drink"

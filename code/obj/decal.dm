@@ -368,6 +368,12 @@
 			icon = 'icons/obj/stationobjs.dmi'
 			icon_state = "barsign"
 
+		coffee
+			name ="Coffee Shop"
+			desc = "A cute little coffee cup poster."
+			icon = 'icons/obj/foodNdrink/espresso.dmi'
+			icon_state ="fancycoffeecup"
+
 		magnet
 			name = "ACTIVE MAGNET AREA"
 			desc = "A warning sign. I guess this area is dangerous."
