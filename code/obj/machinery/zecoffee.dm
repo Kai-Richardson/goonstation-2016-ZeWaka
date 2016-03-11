@@ -44,7 +44,7 @@
 					src.wateramt = W.reagents.get_reagent_amount("water")
 					W.reagents.isolate_reagent("water")
 					W.reagents.del_reagent("water")
-					src.water_level += src.wateramt
+					src.water_level += src.wateramt // change so its this up to the max
 					user.show_text("You dumped [src.wateramt] units of water into the [src].")
 					src.wateramt = 0
 					return ..()
@@ -95,14 +95,13 @@
 						else
 							user.show_text("You don't have enough water in the machine to do that!")
 							return ..()
-					if ("Remove espresso cup")
+					if ("Remove cup")
 						src.cupinside = 0
-						for(var/obj/item/reagent_containers/food/drinks/espressocup/C in src.contents)
+						for(var/obj/item/reagent_containers/food/drinks/espressocup/C in src.contents) //removes cup from contents and ejects
 							C:set_loc(src.loc)
 						user.show_text("You have removed the [src.cup_name] from the [src].")
 						src.update()
 						return ..()
-						//remove cup from contents
 					if ("Nothing")
 						return ..()
 			else
