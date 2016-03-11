@@ -42,12 +42,11 @@
 		// 	user.show_text("You dumped [src.wateramt] into the [src].")
 		// 	return
 
-
 	attack_hand(mob/user as mob)
 		src.add_fingerprint(user)
 		if (src.cupinside == 1)
 			if(!stat & (NOPOWER|BROKEN))
-				switch(alert("What would you like to do with [src]?",,"Make espresso","Remove [src.cup_name]","Nothing"))
+				switch(alert("What would you like to do with [src]?",,"Make espresso","Remove cup","Nothing"))
 					if ("Make espresso")
 						if (src.water_level >= 10)
 							src.water_level -= 10
@@ -104,7 +103,6 @@
 				src.top_on = 0
 				user.show_text("You have unscrewed the top of the [src].")
 				return ..()
-
 		if (src.cupinside == 0 && top_on == 0)
 			user.show_text("You begin screwing the top of the [src] back on.")
 			if (!do_after(user, 30))
@@ -146,21 +144,21 @@
 	name = "coffee cup rack"
 	desc = "It's a rack to hang your fancy coffee cups." //*tip
 	icon = 'icons/obj/foodNdrink/zecoffee.dmi'
-	icon_state = "cuprack7" //changes based cup_ammount
+	icon_state = "cuprack7" //changes based on cup_ammount
 	var/cup_amount = 7
 	var/contained_cup = /obj/item/reagent_containers/food/drinks/espressocup
 	var/contained_cup_name = "espresso cup"
 
 	get_desc(dist, mob/user)
 		if (dist <= 2)
-			. += "There's [(src.cup_amount > 0) ? src.cup_amount : "no" ] [src.contained_cup_name][s_es(src.cup_amount)] in \the [src]."
+			. += "There's [(src.cup_amount > 0) ? src.cup_amount : "no" ] [src.contained_cup_name][s_es(src.cup_amount)] on \the [src]."
 
 	attackby(obj/item/W as obj, mob/user as mob)
 		if (istype(W, src.contained_cup) & src.cup_amount < 7)
 			user.drop_item()
 			qdel(W)
 			src.cup_amount ++
-			boutput(user, "You place \the [src.contained_cup_name] back into \the [src].")
+			boutput(user, "You place \the [src.contained_cup_name] back onto \the [src].")
 			src.updateicon()
 		else return ..()
 
@@ -169,7 +167,7 @@
 		if (src.cup_amount <= 0)
 			user.show_text("\The [src] doesn't have any [src.contained_cup_name]s left, doofus!", "red")
 		else
-			boutput(user, "You take \an [src.contained_cup_name] out of \the [src].")
+			boutput(user, "You take \an [src.contained_cup_name] off of \the [src].")
 			src.cup_amount--
 			var/obj/item/reagent_containers/food/drinks/espressocup/P = new /obj/item/reagent_containers/food/drinks/espressocup
 			user.put_in_hand_or_drop(P)
