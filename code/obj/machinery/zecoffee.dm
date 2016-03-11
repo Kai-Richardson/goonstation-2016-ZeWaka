@@ -5,24 +5,28 @@
 	name = "espresso machine"
 	desc = "It's top of the line NanoTrasen espresso technology! Featuring 100% Organic Locally-Grown espresso beans!" //haha no
 	icon = 'icons/obj/foodNdrink/zecoffee.dmi'
-	icon_state = "funny" //change
-	var/icon_base = "funny" //change
+	icon_state = "espresso_machine"
 	density = 1
 	anchored = 1
 	flags = FPRINT
 	mats = 30
-	var/machine_name = "Espresso Machine"
-	var/doing_a_thing = 0
 	var/cupinside = 0 //true or false
 	var/top_on = 1 //screwed on or screwed off
 	var/water_level = 100 //water level, used to press the coffee
 	var/water_level_max = 100 //max ammount of water that can go in
 	var/cup = null
+	var/wateramt = 0 //temp water value used for putting water in
 	var/cup_name = "espresso cup"
-	// super frankencode
 
 	New()
 		UnsubscribeProcess()
+		src.update()
+
+	get_desc(dist, mob/user)
+		if (dist <= 2)
+			. += "There's [src.water_level] out of [src.water_level_max] units of water in the [src]'s tank."
+		if (src.top_on == 0)
+			. += " It appears that the water tank's lid has been screwed off."
 
 	attackby(var/obj/item/W as obj, var/mob/user as mob)
 		if (istype(W, /obj/item/reagent_containers/food/drinks/espressocup))
@@ -34,17 +38,26 @@
 				W.set_loc(src)
 				user.show_text ("You place the [src.cup_name] into the [src].")
 				src.update()
-		// if (istype(W, /obj/item/reagent_containers/glass/))	//	pour contents of the reagent_container inside and set water level
-		// 	var/datum/reagents/R = W:reagents
-		// 	W:reagents.isolate_reagent("water")
-		// 	current_reagent.volume
-		// 	W:reagents.del_reagent("water")
-		// 	user.show_text("You dumped [src.wateramt] into the [src].")
-		// 	return
+		if (istype(W, /obj/item/reagent_containers/glass/)) //	pour water in the reagent_container inside and update water level
+			if (src.top_on == 0)
+				if (W.reagents.has_reagent("water"))
+					src.wateramt = W.reagents.get_reagent_amount("water")
+					W.reagents.isolate_reagent("water")
+					W.reagents.del_reagent("water")
+					src.water_level += src.wateramt
+					user.show_text("You dumped [src.wateramt] units of water into the [src].")
+					src.wateramt = 0
+					return ..()
+				else
+					user.show_text("The container does not have any water in it!")
+					return ..()
+			else
+				user.show_text("Why are you trying to pour junk everywhere? Get the top off, ya fool!")
+				return ..()
 
 	attack_hand(mob/user as mob)
 		src.add_fingerprint(user)
-		if (src.cupinside == 1)
+		if (src.cupinside == 1)  //&& top_on == 1 ////// DONT PUT A FREAKING AND STATMENT HERE OR YOU WILL SPEND HOURS ACHIEVING NOTHING IN YOUR LIFE
 			if(!stat & (NOPOWER|BROKEN))
 				switch(alert("What would you like to do with [src]?",,"Make espresso","Remove cup","Nothing"))
 					if ("Make espresso")
@@ -102,6 +115,7 @@
 			else
 				src.top_on = 0
 				user.show_text("You have unscrewed the top of the [src].")
+				src.update()
 				return ..()
 		if (src.cupinside == 0 && top_on == 0)
 			user.show_text("You begin screwing the top of the [src] back on.")
@@ -111,7 +125,11 @@
 			else
 				src.top_on = 1
 				user.show_text("You have screwed the top of the [src] back on.")
+				src.update()
 				return ..()
+		if (src.cupinside == 1 && top_on == 0)
+			user.show_text("If you try to turn the [src] on without the top, it will explode! Screw it back on!")
+			return ..()
 		else return ..()
 
 	ex_act(severity)
@@ -133,8 +151,14 @@
 		return
 
 	proc/update()
-//		src.icon_state = "espresso_machine[src.cupinside]" //i switch this over after i get icons done
-		src.icon_state = "syndie"
+		if (src.cupinside == 1)
+			src.UpdateOverlays(image('icons/obj/foodNdrink/zecoffee.dmi', "icon_state" = "cupoverlay"), "cup")
+		if (src.cupinside == 0)
+			src.UpdateOverlays(null, "cup")
+		if (src.top_on == 1)
+			src.UpdateOverlays(image('icons/obj/foodNdrink/zecoffee.dmi', "icon_state" = "coffeetopoverlay"), "top")
+		if (src.top_on == 0)
+			src.UpdateOverlays(null, "top")
 		return
 
 /* ===================================================== */
