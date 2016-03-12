@@ -370,12 +370,12 @@
 	<h2>Donut</h2>
 	<h3>Ingredients</h3>
 	<div class = "donut">
-	<li>1 Dough
+	<li>1 Dough Circle
 	<li>1 Flour
 	</div>
 	<h3>Steps</h3>
 	<div class = "donutsteps">
-	<li>Cook the ingredients in the oven for 3 seconds on low
+	<li>Cook the ingredients in the oven for 3 seconds on low.
 	</div>
 
 	<hr>
@@ -387,6 +387,63 @@
 	<h3>Steps</h3>
 	<div class = "doughsteps">
 	<li>Add water to the flour via a sink
+	</div>
+
+	<hr>
+	<h2>Dough Strip</h2>
+	<h3>Ingredients</h3>
+	<div class = "doughstrip">
+	<li>1 Dough
+	</div>
+	<h3>Steps</h3>
+	<div class = "doughstripsteps">
+	<li>Cut the dough in half with a cutting implement.
+	</div>
+
+	<hr>
+	<h2>Dough Circle</h2>
+	<h3>Ingredients</h3>
+	<div class = "doughcircle">
+	<li>1 Dough Strip
+	</div>
+	<h3>Steps</h3>
+	<div class = "doughcirclesteps">
+	<li>Knead the dough strip into a circle with your hands.
+	</div>
+
+	<hr>
+	<h2>Holey Dough</h2>
+	<h3>Ingredients</h3>
+	<div class = "holedoughcircle">
+	<li>1 Dough
+	</div>
+	<h3>Steps</h3>
+	<div class = "holedoughcirclesteps">
+	<li>Stab the dough with a fork.
+	</div>
+
+	<hr>
+	<h2>Bagel</h2>
+	<h3>Ingredients</h3>
+	<div class = "bagel">
+	<li>1 Dough Circle
+	</div>
+	<h3>Steps</h3>
+	<div class = "bagelteps">
+	<li>Add the dough to the oven.
+	<li>Cook the ingredients in the oven for 3 seconds on low.
+	</div>
+
+	<hr>
+	<h2>Crumpet</h2>
+	<h3>Ingredients</h3>
+	<div class = "crumpet">
+	<li>1 Holey Dough
+	</div>
+	<h3>Steps</h3>
+	<div class = "crumpetteps">
+	<li>Add the holey dough to the oven.
+	<li>Cook the ingredients in the oven for 3 seconds on low.
 	</div>
 
 	<hr>

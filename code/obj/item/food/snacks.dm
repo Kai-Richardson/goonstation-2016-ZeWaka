@@ -917,6 +917,27 @@
 			..()
 			src.heal_amt /= 2
 
+/obj/item/reagent_containers/food/snacks/bagel
+	name = "bagel"
+	desc = "A lovely bread torus to snack on."
+	icon = 'icons/obj/foodNdrink/food_snacks.dmi'
+	icon_state = "bagel"
+	heal_amt = 1
+
+	New()
+		..()
+		if(rand(1,3) == 1)
+			src.icon_state = "seedbagel"
+			src.name = "seed bagel"
+			src.desc = "A bagel. But with seeds on it!"
+
+/obj/item/reagent_containers/food/snacks/crumpet
+	name = "crumpet"
+	desc = "Fresh from England! Goes best with tea."
+	icon = 'icons/obj/foodNdrink/food_snacks.dmi'
+	icon_state = "crumpet"
+	heal_amt = 1
+
 /obj/item/reagent_containers/food/snacks/mushroom
 	name = "space mushroom"
 	desc = "A mushroom cap of Space Fungus. Probably tastes pretty bad."

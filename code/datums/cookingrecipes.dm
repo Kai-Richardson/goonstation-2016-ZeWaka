@@ -123,10 +123,20 @@
 	output = /obj/item/reagent_containers/food/snacks/donkpocket/warm
 
 /datum/cookingrecipe/donut
-	item1 = /obj/item/reagent_containers/food/snacks/ingredient/dough
+	item1 = /obj/item/reagent_containers/food/snacks/ingredient/dough_circle
 	item2 = /obj/item/reagent_containers/food/snacks/ingredient/sugar
 	cookbonus = 6
 	output = /obj/item/reagent_containers/food/snacks/donut
+
+/datum/cookingrecipe/bagel
+	item1 = /obj/item/reagent_containers/food/snacks/ingredient/dough_circle
+	cookbonus = 6
+	output = /obj/item/reagent_containers/food/snacks/bagel
+
+/datum/cookingrecipe/crumpet //another good idea for this is to cook a trumpet
+	item1 = /obj/item/reagent_containers/food/snacks/ingredient/holey_dough
+	cookbonus = 6
+	output = /obj/item/reagent_containers/food/snacks/crumpet
 
 /datum/cookingrecipe/ice_cream_cone
 	item1 = /obj/item/reagent_containers/food/snacks/ingredient/dough_s

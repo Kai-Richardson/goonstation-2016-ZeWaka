@@ -308,7 +308,57 @@
 			user.u_equip(src)
 			user.put_in_hand_or_drop(P)
 			qdel(src)
+		else if (istype(W, /obj/item/axe) || istype(W, /obj/item/circular_saw) || istype(W, /obj/item/kitchen/utensil/knife) || istype(W, /obj/item/scalpel) || istype(W, /obj/item/sword) || istype(W,/obj/item/saw) || istype(W,/obj/item/knife_butcher))
+			boutput(user, "<span style=\"color:blue\">You cut the dough into two strips.</span>")
+			for(var/i = 1, i <= 2, i++)
+				new /obj/item/reagent_containers/food/snacks/ingredient/dough_strip(get_turf(src))
+			qdel(src)
+		else if (istype(W, /obj/item/kitchen/utensil/fork))
+			boutput(user, "<span style=\"color:blue\">You stab holes in the dough. How vicious.</span>")
+			var/obj/item/reagent_containers/food/snacks/ingredient/holey_dough/H = new /obj/item/reagent_containers/food/snacks/ingredient/holey_dough(W.loc)
+			user.u_equip(src)
+			user.put_in_hand_or_drop(H)
+			qdel(src)
 		else ..()
+
+/obj/item/reagent_containers/food/snacks/ingredient/dough_strip
+	name = "dough strip"
+	desc = "A strand of cut up dough. It looks like you can re-attach two of them back together."
+	icon_state = "dough_strip"
+	amount = 1
+	food_color = "#FFFFF"
+	custom_food = 0
+
+	attackby(obj/item/W as obj, mob/user as mob)
+		if (istype(W, /obj/item/reagent_containers/food/snacks/ingredient/dough_strip))
+			boutput(user, "<span style=\"color:blue\">You attach the [src]s back together to make a piece of dough.</span>")
+			var/obj/item/reagent_containers/food/snacks/ingredient/dough/D = new /obj/item/reagent_containers/food/snacks/ingredient/dough(W.loc)
+			user.u_equip(W)
+			user.put_in_hand_or_drop(D)
+			qdel(W)
+			qdel(src)
+		else ..()
+
+	attack_self(var/mob/user as mob)
+		boutput(user, "<span style=\"color:blue\">You twist the [src] into a circle.</span>")
+		new /obj/item/reagent_containers/food/snacks/ingredient/dough_circle(get_turf(src))
+		qdel (src)
+
+/obj/item/reagent_containers/food/snacks/ingredient/dough_circle
+	name = "dough circle"
+	desc = "Used for making torus-shaped things." //I used to eat out with friends, but bagels just torus apart.
+	icon_state = "dough_circle"
+	amount = 1
+	food_color = "#FFFFF"
+	custom_food = 0
+
+/obj/item/reagent_containers/food/snacks/ingredient/holey_dough
+	name = "holey dough" //+1 to chaplain magic skills
+	desc = "Some dough with a bunch of holes poked in it. How exotic."
+	icon_state = "holey_dough"
+	amount = 1
+	food_color = "#FFFFF"
+	custom_food = 0
 
 /obj/item/reagent_containers/food/snacks/ingredient/dough_s
 	name = "sweet dough"
