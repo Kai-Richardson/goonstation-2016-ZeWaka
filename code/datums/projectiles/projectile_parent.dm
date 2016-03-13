@@ -494,6 +494,12 @@ datum/projectile/bullet/glitch
 datum/projectile/bullet/glitch/gun
 	impact_range = 16
 
+datum/projectile/bullet/frog/getin
+	impact_range = 4
+
+datum/projectile/bullet/frog/getout
+	impact_range = 4
+
 datum/projectile/bullet/rod
 	impact_range = 16
 

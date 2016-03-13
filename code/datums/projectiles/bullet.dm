@@ -599,6 +599,41 @@ toxic - poisons
 /datum/projectile/bullet/glitch/gun
 	power = 1
 
+/datum/projectile/bullet/frog/getin
+	name = "green splat"
+	window_pass = 0
+	icon_state = "frog"
+	damage_type = 0
+	power = 0
+	cost = 1
+	dissipation_delay = 12
+	ks_ratio = 1.0
+	sname = "Get In"
+	shot_sound = 'sound/weapons/DSBFG.ogg' //change to ribbit
+	shot_number = 1
+	casing = null
+	icon_turf_hit = "getin"
+
+	New()
+		..()
+
+	// on_hit(atom/hit)
+  //   hit.UpdateOverlays(image('icons/misc/getin.dmi', "icon_state" = "getin"), "getin")
+
+/datum/projectile/bullet/frog/getout
+	sname = "Get Out"
+
+	on_hit(atom/hit)
+		if (isliving(hit))
+			fireflash(get_turf(hit), 0)
+		else if (isturf(hit))
+			hit.UpdateOverlays(image('icons/misc/getin.dmi', "icon_state" = "getin"), "getin")
+			spawn(1)
+				if(prob(40) && istype(hit, /turf/simulated))
+					hit.meteorhit(src)
+		else
+			fireflash(get_turf(hit), 0)
+
 /datum/projectile/bullet/rod // for the coilgun
 	name = "metal rod"
 	power = 50
