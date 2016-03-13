@@ -76,7 +76,6 @@ proc/handle_queued_explosion_dont_call_this_one_directly_fucknuts(atom/source, t
 
 	defer_powernet_rebuild = 1
 	defer_camnet_rebuild = 1
-	defer_main_loops = 1
 	RL_Suspend()
 	radius += 1 // avoid a division by zero
 	for (var/turf/T in nodes) // inverse square law (IMPORTANT) and pre-stun
@@ -119,11 +118,10 @@ proc/handle_queued_explosion_dont_call_this_one_directly_fucknuts(atom/source, t
 			T.ex_act(2, last_touched)
 		else
 			T.ex_act(3, last_touched)
-		LAGCHECK(75)
-
+		
+	LAGCHECK(75)
 	defer_powernet_rebuild = 0
 	defer_camnet_rebuild = 0
-	defer_main_loops = 0
 	RL_Resume()
 	if (needrebuild)
 		makepowernets()
