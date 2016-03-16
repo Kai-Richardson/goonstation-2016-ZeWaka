@@ -599,40 +599,32 @@ toxic - poisons
 /datum/projectile/bullet/glitch/gun
 	power = 1
 
-/datum/projectile/bullet/frog/getin
-	name = "green splat"
+/datum/projectile/bullet/frog/ //sorry for making this, players -Waka
+	name = "green splat" //thanks aibm for wording this beautifully
 	window_pass = 0
-	icon_state = "frog"
+	icon_state = "acidspit"
+	hit_type = null
 	damage_type = 0
 	power = 0
 	cost = 1
 	dissipation_delay = 12
-	ks_ratio = 1.0
 	sname = "Get In"
-	shot_sound = 'sound/weapons/DSBFG.ogg' //change to ribbit
-	shot_number = 1
+	shot_sound = 'sound/weapons/ribbit.ogg' //heh
+	ks_ratio = 1.0
 	casing = null
-	icon_turf_hit = "getin"
+	icon_turf_hit = null
 
 	New()
 		..()
 
-	// on_hit(atom/hit)
-  //   hit.UpdateOverlays(image('icons/misc/getin.dmi', "icon_state" = "getin"), "getin")
+	on_hit(atom/hit)
+		hit.UpdateOverlays(image('icons/misc/getin.dmi', "icon_state" = "getin"), "getin") //why did i code this
 
 /datum/projectile/bullet/frog/getout
 	sname = "Get Out"
 
 	on_hit(atom/hit)
-		if (isliving(hit))
-			fireflash(get_turf(hit), 0)
-		else if (isturf(hit))
-			hit.UpdateOverlays(image('icons/misc/getin.dmi', "icon_state" = "getin"), "getin")
-			spawn(1)
-				if(prob(40) && istype(hit, /turf/simulated))
-					hit.meteorhit(src)
-		else
-			fireflash(get_turf(hit), 0)
+		hit.UpdateOverlays(image('icons/misc/getout.dmi', "icon_state" = "getout"), "getout") //its like im trying to intentionally torture players
 
 /datum/projectile/bullet/rod // for the coilgun
 	name = "metal rod"

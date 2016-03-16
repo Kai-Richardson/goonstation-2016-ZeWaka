@@ -652,18 +652,18 @@
 			var/ratio = min(1, src.cell.charge / src.cell.max_charge)
 			ratio = round(ratio, 0.25) * 100
 			src.icon_state = "energy[ratio]"
-///////////////////////////////////////Frog Gun
+///////////////////////////////////////Frog Gun (Shoots :getin: and :getout:)
 /obj/item/gun/energy/frog
 	name = "Frog Gun"
 	item_state = "gun"
-	m_amt = 4000
+	m_amt = 1000
 	force = 0.0
 	icon_state = "frog"
-	desc = "It appears to be shivering and croaking in your hand."
+	desc = "It appears to be shivering and croaking in your hand. How creepy." //it must be unhoppy
 
 	New()
-		cell = new/obj/item/ammo/power_cell/self_charging/big
-		current_projectile = new/datum/projectile/bullet/frog/getin
+		cell = new/obj/item/ammo/power_cell/self_charging/big //gotta have power for the frog
+		current_projectile = new/datum/projectile/bullet/frog
 		projectiles = list(current_projectile,new/datum/projectile/bullet/frog/getout)
 		..()
 
