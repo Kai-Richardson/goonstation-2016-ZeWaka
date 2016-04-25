@@ -23,38 +23,38 @@
 
 	get_desc(dist, mob/user)
 		if (dist <= 2)
-			. += "There's [src.water_level] out of [src.water_level_max] units of water in the [src]'s tank."
+			. += "There's [src.water_level] out of [src.water_level_max] units of water in \the [src]'s tank."
 		if (src.top_on == 0)
 			. += " It appears that the water tank's lid has been screwed off."
 
 	attackby(var/obj/item/W as obj, var/mob/user as mob)
 		if (istype(W, /obj/item/reagent_containers/food/drinks/espressocup))
 			if (src.cupinside == 1)
-				user.show_text("The [src] can't hold any more [src.cup_name]s, doofus!")
+				user.show_text("\The [src] can't hold any more [src.cup_name]s, doofus!")
 				return ..()
 			if (src.cupinside == 0)
 				user.drop_item()
 				src.cupinside = 1
 				W.set_loc(src)
-				user.show_text ("You place the [src.cup_name] into the [src].")
+				user.show_text ("You place the [src.cup_name] into \the [src].")
 				src.update()
 				return ..()
 		if (istype(W, /obj/item/reagent_containers/glass/)) //	pour water in the reagent_container inside and update water level
 			if (src.top_on == 0)
 				if (W.reagents.has_reagent("water"))
 					if (src.water_level >= src.water_level_max)
-						user.show_text("You can't pour any more water into the [src].")
+						user.show_text("You can't pour any more water into \the [src].")
 						return ..()
 					else
 						src.wateramt = W.reagents.get_reagent_amount("water")
 						if ((src.water_level + src.wateramt) > src.water_level_max)
-							user.show_text("You can't pour any more water into the [src].")
+							user.show_text("You can't pour any more water into \the [src].")
 							return ..()
 						else
 							W.reagents.isolate_reagent("water")
 							W.reagents.del_reagent("water")
 							src.water_level += src.wateramt
-							user.show_text("You dumped [src.wateramt] units of water into the [src].")
+							user.show_text("You dumped [src.wateramt] units of water into \the [src].")
 							src.wateramt = 0
 							return ..()
 					return ..()
@@ -125,7 +125,7 @@
 						src.cupinside = 0
 						for(var/obj/item/reagent_containers/food/drinks/espressocup/C in src.contents) //removes cup from contents and ejects
 							C:set_loc(src.loc)
-						user.show_text("You have removed the [src.cup_name] from the [src].")
+						user.show_text("You have removed the [src.cup_name] from \the [src].")
 						src.update()
 						return ..()
 					if ("Nothing")
@@ -133,35 +133,25 @@
 			else
 				return ..()
 		if (src.cupinside == 0 && top_on == 1)
-			user.show_text("You begin unscrewing the top of the [src].")
+			user.show_text("You begin unscrewing the top of \the [src].")
 			if (!do_after(user, 30))
 				boutput(user, "<span style=\"color:red\">You were interrupted!</span>")
 				return ..()
 			else
 				src.top_on = 0
-				user.show_text("You have unscrewed the top of the [src].")
+				user.show_text("You have unscrewed the top of \the [src].")
 				src.update()
 				return ..()
-		if (src.cupinside == 0 && top_on == 0)
+		if (src.cupinside == 0 && top_on == 0 || src.cupinside == 1 && top_on == 0)
 			user.show_text("You begin screwing the top of the [src] back on.")
 			if (!do_after(user, 30))
 				boutput(user, "<span style=\"color:red\">You were interrupted!</span>")
 				return ..()
 			else
 				src.top_on = 1
-				user.show_text("You have screwed the top of the [src] back on.")
+				user.show_text("You have screwed the top of \the [src] back on.")
 				src.update()
 				return ..()
-		if (src.cupinside == 1 && top_on == 0)
-			user.show_text("You begin screwing the top of the [src] back on.")
-			if (!do_after(user, 30))
-				boutput(user, "<span style=\"color:red\">You were interrupted!</span>")
-				return ..()
-			else
-				src.top_on = 1
-				user.show_text("You have screwed the top of the [src] back on.")
-				src.update()
-			return ..()
 		else return ..()
 
 	ex_act(severity)
