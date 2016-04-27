@@ -766,6 +766,7 @@
 				if (src.sampled)
 					H.show_text("You didn't find anything useful. Now your hands are all bloody for nothing!", "red")
 				else
+					if (H.job == "Sous-Chef" && prob(30))
 						H.show_text("The... meat... slips through your inexperienced hands.", "blue")
 						src.sampled = 1
 					else
