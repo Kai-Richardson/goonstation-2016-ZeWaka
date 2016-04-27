@@ -1289,6 +1289,24 @@
 					H.show_text("You find some... salvageable... wires.. you guess?", "blue")
 					new /obj/item/cable_coil/cut/small(src.loc)
 				src.sampled = 1
+			if (H.job == "Chef" || H.job == "Sous-Chef")
+				user.visible_message("<span style=\"color:blue\"><b>[H]</b> starts rifling through \the [src] with their hands. What a weirdo.</span>",\
+				"<span style=\"color:blue\">You rake through \the [src] with your bare hands.</span>")
+				playsound(src.loc, "sound/effects/splat.ogg", 50, 1)
+				if (src.sampled)
+					H.show_text("You didn't find anything useful. Now your hands are all grimey for nothing!", "red")
+				else
+					if (H.job == "Sous-Chef" && prob(30))
+						H.show_text("The... twitching meat... slips through your inexperienced hands.", "blue")
+					else
+						H.show_text("You find some... salvageable... twitching meat.. you guess?", "blue")
+						var/obj/item/reagent_containers/food/snacks/ingredient/meat/mysterymeat/M = new /obj/item/reagent_containers/food/snacks/ingredient/meat/mysterymeat/(src.loc)
+						M.cybermeat = 1
+						M.name = "cyber meat"
+						M.desc = "Raw, twitching silicon based muscle. Eww."
+						M.icon_state = "cybermeat"
+						M.reagents.add_reagent("nanites", 10)
+					src.sampled = 1
 			else
 				return ..()
 		else
