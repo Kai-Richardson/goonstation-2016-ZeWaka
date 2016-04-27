@@ -67,6 +67,16 @@
 	desc = "What the fuck is this??"
 	icon_state = "mysterymeat"
 	amount = 1
+	var/cybermeat = 0
+
+	throw_impact(var/turf/T)
+		if (src.cybermeat == 1)
+			playsound(src.loc, "sound/effects/splat.ogg", 100, 1)
+			if (istype(T))
+				new /obj/decal/cleanable/oil(T)
+				..()
+		else
+			return..()
 
 /obj/item/reagent_containers/food/snacks/ingredient/meat/bacon
 	name = "bacon"
