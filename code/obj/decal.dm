@@ -768,7 +768,6 @@
 				else
 					if (H.job == "Sous-Chef" && prob(30))
 						H.show_text("The... meat... slips through your inexperienced hands.", "blue")
-						src.sampled = 1
 					else
 						H.show_text("You find some... salvageable... meat.. you guess?", "blue")
 						H.unlock_medal("Sheesh!", 1)
@@ -1289,7 +1288,7 @@
 				else
 					H.show_text("You find some... salvageable... wires.. you guess?", "blue")
 					new /obj/item/cable_coil/cut/small(src.loc)
-					src.sampled = 1
+				src.sampled = 1
 			else
 				return ..()
 		else
