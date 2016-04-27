@@ -756,8 +756,8 @@
 		if (istype(user, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = user
 			if (H.job == "Chef" || H.job == "Sous-Chef")
-				user.visible_message("<span style=\"color:blue\"><b>[H]</b> starts rifling through [src] with their hands. What a weirdo.</span>",\
-				"<span style=\"color:blue\">You rake through the gibs with your bare hands.</span>")
+				user.visible_message("<span style=\"color:blue\"><b>[H]</b> starts rifling through \the [src] with their hands. What a weirdo.</span>",\
+				"<span style=\"color:blue\">You rake through \the [src] with your bare hands.</span>")
 				playsound(src.loc, "sound/effects/splat.ogg", 50, 1)
 				if (H.gloves)
 					H.gloves.blood_DNA = src.blood_DNA
@@ -1280,12 +1280,12 @@
 	attack_hand(var/mob/user as mob)
 		if (istype(user, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = user
-			if (H.job == "Roboticist" || H.job == "Engineer")
+			if (H.job == "Roboticist" || H.job == "Engineer" || H.job == "Mechanic")
 				user.visible_message("<span style=\"color:blue\"><b>[H]</b> starts rifling through \the [src] with their hands. What a weirdo.</span>",\
-				"<span style=\"color:blue\">You rake through the gears and wiring with your bare hands.</span>")
+				"<span style=\"color:blue\">You rake through \the [src] with your bare hands.</span>")
 				playsound(src.loc, "sound/effects/sparks3.ogg", 50, 1)
 				if (src.sampled)
-					H.show_text("You didn't find anything useful. Now you have oil all over your hands for nothing!", "red")
+					H.show_text("You didn't find anything useful. Now you have grime all over your hands for nothing!", "red")
 				else
 					H.show_text("You find some... salvageable... wires.. you guess?", "blue")
 					new /obj/item/cable_coil/cut/small(src.loc)
