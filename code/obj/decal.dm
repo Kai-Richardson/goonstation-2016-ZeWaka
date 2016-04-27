@@ -755,7 +755,7 @@
 	attack_hand(var/mob/user as mob)
 		if (istype(user, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = user
-			if (H.job == "Chef")
+			if (H.job == "Chef" || H.job == "Sous-Chef")
 				user.visible_message("<span style=\"color:blue\"><b>[H]</b> starts rifling through [src] with their hands. What a weirdo.</span>",\
 				"<span style=\"color:blue\">You rake through the gibs with your bare hands.</span>")
 				playsound(src.loc, "sound/effects/splat.ogg", 50, 1)
@@ -766,9 +766,12 @@
 				if (src.sampled)
 					H.show_text("You didn't find anything useful. Now your hands are all bloody for nothing!", "red")
 				else
-					H.show_text("You find some... salvageable... meat.. you guess?", "blue")
-					H.unlock_medal("Sheesh!", 1)
-					new /obj/item/reagent_containers/food/snacks/ingredient/meat/mysterymeat(src.loc)
+						H.show_text("The... meat... slips through your inexperienced hands.", "blue")
+						src.sampled = 1
+					else
+						H.show_text("You find some... salvageable... meat.. you guess?", "blue")
+						H.unlock_medal("Sheesh!", 1)
+						new /obj/item/reagent_containers/food/snacks/ingredient/meat/mysterymeat(src.loc)
 					src.sampled = 1
 			else
 				return ..()
@@ -1273,6 +1276,23 @@
 	icon_state = "gib1"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6", "gib7")
 
+	attack_hand(var/mob/user as mob)
+		if (istype(user, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = user
+			if (H.job == "Roboticist" || H.job == "Engineer")
+				user.visible_message("<span style=\"color:blue\"><b>[H]</b> starts rifling through \the [src] with their hands. What a weirdo.</span>",\
+				"<span style=\"color:blue\">You rake through the gears and wiring with your bare hands.</span>")
+				playsound(src.loc, "sound/effects/sparks3.ogg", 50, 1)
+				if (src.sampled)
+					H.show_text("You didn't find anything useful. Now you have oil all over your hands for nothing!", "red")
+				else
+					H.show_text("You find some... salvageable... wires.. you guess?", "blue")
+					new /obj/item/cable_coil/cut/small(src.loc)
+					src.sampled = 1
+			else
+				return ..()
+		else
+			return ..()
 	proc/streak(var/list/directions)
 		spawn (0)
 			var/direction = pick(directions)
