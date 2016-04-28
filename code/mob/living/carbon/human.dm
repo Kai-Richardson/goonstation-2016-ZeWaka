@@ -4789,6 +4789,18 @@
 						if (src.mind && !src.asleep)
 							if (src.resting)
 								boutput(src, "<span style=\"color:green\">You are resting. Click 'rest' to toggle back to stand.</span>")
+								if your on a pool turf
+									if (ishuman(A))
+										var/mob/living/carbon/human/H = A
+										if (H.resting == 1)
+											H.losebreath += rand(1,2)
+											if (prob(20))
+												H.emote("gurgle")
+											return..()
+									else
+										return..()
+								else
+									return..()
 							else
 								boutput(src, "<span style=\"color:green\">You begin to recover.</span>")
 				//		for (var/mob/V in viewers(7,src))
