@@ -4789,15 +4789,15 @@
 						if (src.mind && !src.asleep)
 							if (src.resting)
 								boutput(src, "<span style=\"color:green\">You are resting. Click 'rest' to toggle back to stand.</span>")
-								if your on a pool turf
-									if (ishuman(A))
-										var/mob/living/carbon/human/H = A
-										if (H.resting == 1)
-											H.losebreath += rand(1,2)
-											if (prob(20))
-												H.emote("gurgle")
-											return..()
-									else
+								location = get_turf(src)
+								if(location == )
+											var/turf/T = over_object
+											if (istype(T, /obj/table))
+								if(/obj/poolwater) ????
+									if (src.resting == 1)
+						 				src.losebreath += rand(1,2)
+										if (prob(20))
+											src.emote("gurgle")
 										return..()
 								else
 									return..()
