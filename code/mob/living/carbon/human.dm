@@ -67,6 +67,8 @@
 
 	var/in_throw_mode = 0
 
+	var/inpool = 0 //is the mob in the pool or not
+
 	var/decomp_stage = 0 // 1 = bloat, 2 = decay, 3 = advanced decay, 4 = skeletonized
 	var/next_decomp_time = 0
 
@@ -4789,18 +4791,6 @@
 						if (src.mind && !src.asleep)
 							if (src.resting)
 								boutput(src, "<span style=\"color:green\">You are resting. Click 'rest' to toggle back to stand.</span>")
-								location = get_turf(src)
-								if(location == )
-											var/turf/T = over_object
-											if (istype(T, /obj/table))
-								if(/obj/poolwater) ????
-									if (src.resting == 1)
-						 				src.losebreath += rand(1,2)
-										if (prob(20))
-											src.emote("gurgle")
-										return..()
-								else
-									return..()
 							else
 								boutput(src, "<span style=\"color:green\">You begin to recover.</span>")
 				//		for (var/mob/V in viewers(7,src))
@@ -4819,6 +4809,17 @@
 			else src.lying = 1
 			src.blinded = 1
 			src.stat = 2
+
+		if (src.inpool == 1 ) //is mob in the pool?
+			if (src.lying == 1)//is mob lying down as well?
+				src.take_oxygen_deprivation(rand(1,5))
+				if (global_sims_mode == 1)
+					src.take_oxygen_deprivation(10)
+					return
+				else if (prob(15))
+					src.emote("gurgle") //blub blub....
+					return
+				return
 
 		if (src.lying != lying_old)
 			// Update clothing - Taken out of Life() to reduce icon overhead
