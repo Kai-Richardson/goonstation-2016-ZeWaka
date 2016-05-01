@@ -67,8 +67,6 @@
 
 	var/in_throw_mode = 0
 
-	var/inpool = 0 //is the mob in the pool or not
-
 	var/decomp_stage = 0 // 1 = bloat, 2 = decay, 3 = advanced decay, 4 = skeletonized
 	var/next_decomp_time = 0
 
