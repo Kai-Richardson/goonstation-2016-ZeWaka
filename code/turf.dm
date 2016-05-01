@@ -2428,22 +2428,6 @@ var/global/client/ff_debugger = null
 		..()
 		dir = pick(NORTH,SOUTH)
 
-	Entered(atom/A as mob) //if you go in the pool, sets var inpool on mob to 1
-		if (ismob(A))
-			var/mob/M = A
-			if(!M.stat && ishuman(M))
-				var/mob/living/carbon/human/H = M
-				H.inpool = 1
-		return ..()
-
-	Exited(atom/A as mob)//or if you leave it sets it to 0
-		if (ismob(A))
-			var/mob/M = A
-			if(!M.stat && ishuman(M))
-				var/mob/living/carbon/human/H = M
-				H.inpool = 0
-		return ..()
-
 /turf/unsimulated/grasstodirt
 	name = "grass"
 	icon = 'icons/misc/worlds.dmi'

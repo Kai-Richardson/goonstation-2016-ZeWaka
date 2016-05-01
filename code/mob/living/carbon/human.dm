@@ -4793,6 +4793,26 @@
 								boutput(src, "<span style=\"color:green\">You are resting. Click 'rest' to toggle back to stand.</span>")
 							else
 								boutput(src, "<span style=\"color:green\">You begin to recover.</span>")
+
+				if (locate(/obj/poolwater) in get_turf(src)) //is mob in the pool?
+					if (src.lying == 1 || src.asleep ==1 )//is mob lying or asleep as well?
+						if (global_sims_mode == 1) //sims mode already has it built in, so ignore
+							return..()
+						else if (global_sims_mode == 0)
+							if (istype(src.shoes, /obj/item/clothing/shoes/flippers)) //you dont drown if you have flippers
+								return..()
+							else
+								if (prob(50))
+									boutput(src, "<span style=\"color:red\">You are drowning!</span>")
+									return
+								src.take_oxygen_deprivation(rand(1,4))
+								src.losebreath++
+								if (prob(15))
+									src.emote("gurgle") //blub blub....
+									return
+								return
+						return
+
 				//		for (var/mob/V in viewers(7,src))
 				//			boutput(V, "<span style=\"color:red\">[name] begins to recover.</span>")
 				else if ((oldStat == 1) && (!paralysis && !stunned && !src.weakened && !changeling_fakedeath))
@@ -4809,17 +4829,6 @@
 			else src.lying = 1
 			src.blinded = 1
 			src.stat = 2
-
-		if (src.inpool == 1 ) //is mob in the pool?
-			if (src.lying == 1)//is mob lying down as well?
-				src.take_oxygen_deprivation(rand(1,5))
-				if (global_sims_mode == 1)
-					src.take_oxygen_deprivation(10)
-					return
-				else if (prob(15))
-					src.emote("gurgle") //blub blub....
-					return
-				return
 
 		if (src.lying != lying_old)
 			// Update clothing - Taken out of Life() to reduce icon overhead
