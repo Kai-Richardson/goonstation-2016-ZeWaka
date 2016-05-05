@@ -867,7 +867,7 @@ proc/create_fluff(var/datum/mind/target)
 
 	set_up()
 		if (map_setting == "DESTINY")
-			target_feed_count =	max(1, min(6, round((ticker.minds.len - 5) / 3)))
+			target_feed_count = max(1, min(6, round((ticker.minds.len - 5) / 3)))
 		else
 			target_feed_count = min(10, (ticker.minds.len - 1))
 		explanation_text = "Feed on at least [target_feed_count] crew members."
