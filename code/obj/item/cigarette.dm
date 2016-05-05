@@ -98,6 +98,9 @@
 			if (istype(W, /obj/item/weldingtool) && W:welding)
 				src.light(user, "<span style=\"color:red\"><b>[user]</b> casually lights the [src] with [W], what a badass.</span>")
 				return
+			else if (istype(W, /obj/item/sword))
+				src.light(user, "<span style=\"color:red\"><b>[user]</b> swishes the [W] alarmingly close to \his face and lights \the [src] ablaze.</span>")
+				return
 			else if (istype(W, /obj/item/clothing/head/cakehat) && W:on)
 				src.light(user, "<span style=\"color:red\">Did [user] just light \his [src] with the [W]? Holy Shit.</span>")
 				return
