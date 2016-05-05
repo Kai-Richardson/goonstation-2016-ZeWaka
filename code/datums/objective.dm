@@ -689,7 +689,12 @@ proc/create_fluff(var/datum/mind/target)
 		return 1
 
 /datum/objective/specialist/blob
-	explanation_text = "Grow up to at least 500 tiles in size and force the evacuation of the station."
+	var/blobtiletarget = 500
+
+	set_up()
+		if (map_setting == "DESTINY")
+			blobtiletarget = pick(300,350,400)
+		explanation_text = "Grow up to at least [blobtiletarget] tiles in size and force the evacuation of the station."
 
 	check_completion()
 		if (!owner)
@@ -701,7 +706,7 @@ proc/create_fluff(var/datum/mind/target)
 		if (!istype(O))
 			return 0
 
-		if (O.blobs.len >= 500)
+		if (O.blobs.len >= blobtiletarget)
 			return 1
 
 /datum/objective/specialist/wraith
