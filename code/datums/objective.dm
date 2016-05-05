@@ -584,7 +584,10 @@ proc/create_fluff(var/datum/mind/target)
 	var/absorb_count
 
 	set_up()
-		absorb_count = min(10, (ticker.minds.len - 1))
+		if (map_setting == "DESTINY")
+			absorb_count =	max(1, min(6, round((ticker.minds.len - 5) / 3)))
+		else
+			absorb_count = min(10, (ticker.minds.len - 1))
 		explanation_text = "Absorb the DNA of at least [absorb_count] more crew members in addition to the one you started with, and escape on the shuttle alive."
 
 	check_completion()
@@ -614,7 +617,10 @@ proc/create_fluff(var/datum/mind/target)
 	var/bloodcount
 
 	set_up()
-		bloodcount = rand(60,100) * 10
+		if (map_setting == "DESTINY")
+			bloodcount = rand(50,100) * 7
+		else
+			bloodcount = rand(60,100) * 10
 		explanation_text = "Accumulate at least [bloodcount] units of blood in total."
 
 	check_completion()
@@ -860,7 +866,10 @@ proc/create_fluff(var/datum/mind/target)
 	var/list/mob/mobs_fed_on = list() // Stores bioHolder.Uid of previous victims, so we can't feed on the same person multiple times.
 
 	set_up()
-		target_feed_count = min(10, (ticker.minds.len - 1))
+		if (map_setting == "DESTINY")
+			target_feed_count =	max(1, min(6, round((ticker.minds.len - 5) / 3)))
+		else
+			target_feed_count = min(10, (ticker.minds.len - 1))
 		explanation_text = "Feed on at least [target_feed_count] crew members."
 
 	check_completion()
