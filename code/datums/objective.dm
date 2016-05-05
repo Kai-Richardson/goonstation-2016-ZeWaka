@@ -585,7 +585,7 @@ proc/create_fluff(var/datum/mind/target)
 
 	set_up()
 		if (map_setting == "DESTINY")
-			absorb_count =	max(1, min(6, round((ticker.minds.len - 5) / 3)))
+			absorb_count = max(1, min(6, round((ticker.minds.len - 5) / 3)))
 		else
 			absorb_count = min(10, (ticker.minds.len - 1))
 		explanation_text = "Absorb the DNA of at least [absorb_count] more crew members in addition to the one you started with, and escape on the shuttle alive."
