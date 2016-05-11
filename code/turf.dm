@@ -1250,6 +1250,14 @@ var/global/client/ff_debugger = null
 		src.attach_light_fixture_parts(user, W) // Made this a proc to avoid duplicate code (Convair880).
 		return
 
+	if (istype(W, /obj/item/surgical_spoon) || istype(W, /obj/item/kitchen/utensil/spoon))
+		if (rand(1,1000) == 666)
+			boutput(user, "<span style=\"color:blue\">\The [src.name] crumbles under the strength of your mighty [W.name].</span>")
+			dismantle_wall(src)
+			return
+		else
+			boutput(user, "<span style=\"color:red\">You stupidly hit \the [src.name] with your [W.name] but nothing happens, dummy!</span>")
+
 	else if (istype(W, /obj/item/weldingtool) && W:welding)
 		W:eyecheck(user)
 		var/turf/T = user.loc
