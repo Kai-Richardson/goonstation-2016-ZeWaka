@@ -1252,11 +1252,11 @@ var/global/client/ff_debugger = null
 
 	if (istype(W, /obj/item/surgical_spoon) || istype(W, /obj/item/kitchen/utensil/spoon))
 		if (rand(1,1000) == 666)
-			boutput(user, "<span style=\"color:blue\">\The [src.name] crumbles under the strength of your mighty [W.name].</span>")
+			user.visible_message("<span style=\"color:red\">[user] furiously smashes the [src.name] with their [W.name]!</span>","<span style=\"color:blue\">\The [src.name] crumbles under the strength of your mighty [W.name].</span>")
 			dismantle_wall(src)
 			return
 		else
-			boutput(user, "<span style=\"color:red\">You stupidly hit \the [src.name] with your [W.name] but nothing happens, dummy!</span>")
+			user.visible_message("<span style=\"color:red\">[user] pokes the [src.name] with their [W.name]!</span>","<span style=\"color:red\">You stupidly hit \the [src.name] with your [W.name] but nothing happens, dummy.</span>")
 
 	else if (istype(W, /obj/item/weldingtool) && W:welding)
 		W:eyecheck(user)
