@@ -199,7 +199,7 @@ var/global/client/ff_debugger = null
 	icon = 'ocean.dmi'
 	name = "seafloor"
 	water = 138771
-	temperature = T0C + 2 // average ocean temp on Earth is roughly 1-4 °C
+	temperature = T0C + 2 // average ocean temp on Earth is roughly 1-4 Â°C
 
 	New()
 		..()
@@ -1250,14 +1250,17 @@ var/global/client/ff_debugger = null
 		src.attach_light_fixture_parts(user, W) // Made this a proc to avoid duplicate code (Convair880).
 		return
 
-	if (istype(W, /obj/item/surgical_spoon) || istype(W, /obj/item/kitchen/utensil/spoon))
-		if (rand(1,1000) == 666)
-			user.visible_message("<span style=\"color:red\">[user] furiously smashes the [src.name] with their [W.name]!</span>","<span style=\"color:blue\">\The [src.name] crumbles under the strength of your mighty [W.name].</span>")
-			dismantle_wall(src)
-			return
-		else
-			user.visible_message("<span style=\"color:red\">[user] pokes the [src.name] with their [W.name]!</span>","<span style=\"color:red\">You stupidly hit \the [src.name] with your [W.name] but nothing happens, dummy.</span>")
+	else if (istype(W, /obj/item/surgical_spoon) || istype(W, /obj/item/kitchen/utensil/spoon))
+		var/turf/T = user.loc
+		if (!( istype(T, /turf) ))
+			sleep(500)
+			user.visible_message("<span style=\"color:red\">[user] chips the [src.name] with their [W.name]!</span>","<span style=\"color:red\">You chip \the [src.name] with your [W.name] but nothing ummy.</span>")
+			chippedamt++
 
+			if (chippedamt >= 21)
+				user.visible_message("<span style=\"color:red\">[user] furiously smashes the [src.name] with their [W.name]!</span>","<span style=\"color:blue\">\The [src.name] crumbles under the strength of your mighty [W.name].</span>")
+				dismantle_wall(src)
+			
 	else if (istype(W, /obj/item/weldingtool) && W:welding)
 		W:eyecheck(user)
 		var/turf/T = user.loc
