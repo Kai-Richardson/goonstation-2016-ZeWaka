@@ -217,10 +217,9 @@ datum/controller/process/proc/scheck()
 
 	// For each tick the process defers, it increments the cpu_defer_count so we don't
 	// defer indefinitely
-	if (world.tick_usage > 90 || main.world.tick_usage > tick_start + tick_allowance)
+	if (world.tick_usage > 100 || world.tick_usage - tick_start > tick_allowance)
 		current_usage += world.tick_usage - tick_start
-		sleep(world.tick_lag)
-		LAGCHECK(90)
+		sleep(world.tick_lag * main.running.len)
 		cpu_defer_count++
 		last_slept = TimeOfHour
 		tick_start = world.tick_usage
